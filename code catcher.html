@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Code Catcher</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #0f1117;
+      color: #00ffcc;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    #snippet {
+      font-size: 24px;
+      background: #1e1e2f;
+      padding: 15px 25px;
+      border-radius: 8px;
+      margin: 20px 0;
+      box-shadow: 0 0 10px #00ffcc33;
+    }
+
+    input {
+      font-size: 20px;
+      padding: 10px;
+      width: 80%;
+      max-width: 400px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      background: #1e1e2f;
+      color: #00ffcc;
+    }
+
+    #score, #timer {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    .highlight {
+      color: #ff4081;
+    }
+  </style>
+</head>
+<body>
+  <h1>💻 Code Catcher</h1>
+  <div id="snippet">let score = 0;</div>
+  <input type="text" id="input" placeholder="Type the code here..." autofocus />
+  <div id="score">Score: 0</div>
+  <div id="timer">Time: 30s</div>
+
+  <script>
+    const snippets = [
+      "let score = 0;",
+      "const name = 'Nin';",
+      "function startGame() {",
+      "console.log('Hello World');",
+      "if (x > 10) return true;",
+      "document.querySelector('#id');",
+      "for (let i = 0; i < 5; i++) {",
+      "while (true) break;",
+      "const sum = (a, b) => a + b;",
+      "window.addEventListener('load', init);"
+    ];
+
+    const snippetEl = document.getElementById("snippet");
+    const inputEl = document.getElementById("input");
+    const scoreEl = document.getElementById("score");
+    const timerEl = document.getElementById("timer");
+
+    let score = 0;
+    let time = 30;
+    let currentSnippet = "";
+
+    function getRandomSnippet() {
+      return snippets[Math.floor(Math.random() * snippets.length)];
+    }
+
+    function setNewSnippet() {
+      currentSnippet = getRandomSnippet();
+      snippetEl.textContent = currentSnippet;
+      inputEl.value = "";
+    }
+
+    inputEl.addEventListener("input", () => {
+      if (inputEl.value === currentSnippet) {
+        score++;
+        scoreEl.textContent = `Score: ${score}`;
+        setNewSnippet();
+      }
+    });
+
+    function startTimer() {
+      const interval = setInterval(() => {
+        time--;
+        timerEl.textContent = `Time: ${time}s`;
+        if (time === 0) {
+          clearInterval(interval);
+          snippetEl.innerHTML = `<span class="highlight">Game Over!</span>`;
+          inputEl.disabled = true;
+        }
+      }, 1000);
+    }
+
+    // Start game
+    setNewSnippet();
+    startTimer();
+  </script>
+</body>
+</html>

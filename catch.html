@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Catch the Ninja Star</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle, #1f1c2c, #928dab);
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 20px;
+    }
+
+    #score {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    #star {
+      position: absolute;
+      font-size: 40px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    #star:hover {
+      transform: scale(1.3) rotate(45deg);
+    }
+  </style>
+</head>
+<body>
+  <h1>Catch the Ninja Star 🌀</h1>
+  <div id="score">Score: 0</div>
+  <div id="star">🌀</div>
+
+  <script>
+    const star = document.getElementById("star");
+    const scoreDisplay = document.getElementById("score");
+    let score = 0;
+
+    function moveStar() {
+      const x = Math.random() * (window.innerWidth - 50);
+      const y = Math.random() * (window.innerHeight - 50);
+      star.style.left = `${x}px`;
+      star.style.top = `${y}px`;
+    }
+
+    star.addEventListener("click", () => {
+      score++;
+      scoreDisplay.textContent = `Score: ${score}`;
+      moveStar();
+    });
+
+    // Initial position
+    moveStar();
+  </script>
+</body>
+</html>

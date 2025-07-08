@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Keyboard Ninja</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    #letter {
+      font-size: 100px;
+      margin: 30px 0;
+      color: #00ffcc;
+    }
+
+    #score {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    #message {
+      font-size: 18px;
+      color: #ff6666;
+    }
+  </style>
+</head>
+<body>
+  <h1>⚔️ Keyboard Ninja ⚔️</h1>
+  <div id="score">Score: 0</div>
+  <div id="letter">A</div>
+  <div id="message">Press the correct key!</div>
+
+  <script>
+    const letterDisplay = document.getElementById("letter");
+    const scoreDisplay = document.getElementById("score");
+    const message = document.getElementById("message");
+
+    let score = 0;
+    let currentLetter = "";
+
+    function getRandomLetter() {
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      return letters[Math.floor(Math.random() * letters.length)];
+    }
+
+    function showNewLetter() {
+      currentLetter = getRandomLetter();
+      letterDisplay.textContent = currentLetter;
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key.toUpperCase() === currentLetter) {
+        score++;
+        scoreDisplay.textContent = `Score: ${score}`;
+        message.textContent = "Nice hit! 🔥";
+        showNewLetter();
+      } else {
+        message.textContent = "Wrong key! Try again 😅";
+      }
+    });
+
+    // Start the game
+    showNewLetter();
+  </script>
+</body>
+</html>
